@@ -1,5 +1,7 @@
 <?php
+
 /** @codingStandardsIgnoreStart */
+
 declare(strict_types=1);
 
 namespace App;
@@ -13,18 +15,11 @@ use function Siler\Http\Request\raw;
 use function Siler\Swoole\http;
 use function Siler\Swoole\json;
 
+use Siler\Functional as AppSiler; // Just to be cool, don't use non-ASCII identifiers ;)
+use Siler\Route;
+
 $basedir = __DIR__;
 require_once "$basedir/vendor/autoload.php";
 
-$todos = new InMemoryTodos();
-$type_defs = file_get_contents("$basedir/res/schema.graphql");
-$schema = schema($type_defs, create_resolvers($todos));
-$handler = function () use ($schema) {
-    // var_dump(decode(raw()));
-
-    return json(execute($schema, decode(raw())));
-};
-$port = env_int('PORT', 8000);
-
-echo "Listening on http://localhost:$port\n";
-http($handler, $port)->start();
+ 
+Route\get('/',  AppSiler\puts("HELLO SIR sd"));
